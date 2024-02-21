@@ -55,7 +55,6 @@ export class ResumeController {
     updateResume = async (req, res, next) => {
         const { resumeId } = req.params;
         const { title, introduction, status } = req.body;
-        const { userId } = req.user;
 
         const resumeStatus = status || "APPLY";
 
@@ -78,7 +77,6 @@ export class ResumeController {
 
     deleteResume = async (req, res, next) => {
         const { resumeId } = req.params;
-        const { userId } = req.user;
 
         await this.resumeService.deleteResume(resumeId);
         return res.status(200).json({ message: "이력서 삭제" });
