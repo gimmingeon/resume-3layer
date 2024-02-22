@@ -71,14 +71,33 @@ export class ResumeController {
             return res.status(400).json({ message: "이력서 상태를 잘못 입력했습니다" });
         }
 
-        await this.resumeService.updateResume(resumeId, title, introduction, status);
+        const resume = await this.resumeService.updateResume(resumeId, title, introduction, status);
+        
+        if (!resume) {
+            return res.status(404).json({ message: "이력서 조회에 실패하였습니다." });
+        }
+
+        if (resume.userId !== +userId) {
+            return res.status(403).json({ message: "당신의 이력서가 아닙니다" });
+        }
+        
         return res.status(200).json({ message: "이력서 수정 완료" });
     };
 
     deleteResume = async (req, res, next) => {
         const { resumeId } = req.params;
 
-        await this.resumeService.deleteResume(resumeId);
+        const resume = await this.resumeService.deleteResume(resumeId);
+
+        if (!resume) {
+            return res.status(404).json({ message: "이력서조회에 실패했습니다" });
+        }
+        
+          if(resume.userId !== +userId) {
+            return res.status(404).json({message: "당신의 이력서가 아닙니다"});
+        }
+        
+
         return res.status(200).json({ message: "이력서 삭제" });
     }
 

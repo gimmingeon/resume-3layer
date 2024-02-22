@@ -53,7 +53,7 @@ export class ResumeRepository {
 
     updateResume = async (resumeId, title, introduction, status) => {
 
-        await prisma.resume.update({
+        const resume = await prisma.resume.update({
             data: {
                 title,
                 introduction,
@@ -63,6 +63,12 @@ export class ResumeRepository {
                 resumeId: +resumeId,
             },
         });
+
+        if(!resume) {
+            return null;
+        }
+
+        return resume
     };
 
     deleteResume = async (resumeId) => {

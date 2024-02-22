@@ -5,7 +5,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "format": "prettier --write *.js **/*.js"
+    "format": "prettier --write *.js **/*.js",
+    "test" : "jest --detectOpenHandles --forceExit"
   },
   "dependencies": {
     "@prisma/client": "^5.10.1",
@@ -16,7 +17,12 @@
     "prisma": "^5.10.1"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "nodemon": "^3.0.3",
     "prettier": "^3.2.4"
+  },
+  "jest": {
+    "verbose" : true,
+    "collectCoverage": true
   }
 }

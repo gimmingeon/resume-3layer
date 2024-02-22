@@ -38,11 +38,22 @@ export class ResumeService {
 
         const updateResume = await this.resumeRepository.updateResume(resumeId, title, introduction, status);
 
+
+        if (!updateResume) {
+            return null;
+        }
+
         return updateResume;
     };
 
     deleteResume = async (resumeId) => {
         const deleteResume = await this.resumeRepository.deleteResume(resumeId);
+
+        if (!deleteResume) {
+            return null;
+        }
+
+
 
         return deleteResume;
     };
